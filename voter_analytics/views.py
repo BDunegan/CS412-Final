@@ -2,9 +2,9 @@
 from django.views.generic import ListView
 from . models import Voter
 from datetime import datetime
+import plotly
 import plotly.graph_objs as go
 from django.views.generic import DetailView
-from django.db.models import Q
 from django.shortcuts import redirect
 
 # Create your views here.
@@ -135,6 +135,7 @@ class GraphsView(ListView):
             xaxis=dict(type='category')
         )
         birth_year_graph = birth_year_fig.to_html(full_html=False)
+        # birth_year_graph = plotly.offline.plot(birth_year_fig, output_type='div', include_plotlyjs=False)
 
         # Party Affiliation Distribution (Pie Chart)
         affiliation_data = {}
@@ -149,6 +150,7 @@ class GraphsView(ListView):
             title='Distribution of Voters by Party Affiliation'
         )
         affiliation_graph = affiliation_fig.to_html(full_html=False)
+        # affiliation_graph = plotly.offline.plot(affiliation_fig, output_type='div', include_plotlyjs=False)
 
         # Voter Participation in Elections (Bar Chart)
         elections = ['v20state', 'v21town', 'v21primary', 'v22general', 'v23town']
@@ -166,6 +168,7 @@ class GraphsView(ListView):
             yaxis_title='Number of Voters'
         )
         election_graph = election_fig.to_html(full_html=False)
+        # election_graph = plotly.offline.plot(election_fig, output_type='div', include_plotlyjs=False)
 
         # Add graphs and filter parameters to context
         context['birth_year_graph'] = birth_year_graph

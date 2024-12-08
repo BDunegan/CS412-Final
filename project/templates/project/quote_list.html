@@ -1,0 +1,29 @@
+<!-- project/templates/project/quote_list.html -->
+{% extends "project/base.html" %} <!-- Extend the base template for consistent layout -->
+
+{% block content %}
+    <div>
+        <!-- Page title -->
+        <h1 class="page-title">Quotes List</h1>
+
+        <!-- List of quotes -->
+        <ul class="quotes-list">
+            {% for quote in quotes %} <!-- Loop through the quotes passed in the context -->
+            <div class="quote-card"> <!-- Container for each quote card -->
+                <li>
+                    <!-- Display the quote text -->
+                    <p class="quote-text">{{ quote.quote }}</p>
+
+                    <!-- Display the book the quote is from -->
+                    <p class="quote-book">
+                        From: 
+                        <a href="{% url 'book_detail' quote.book.pk %}" class="book-link">
+                            {{ quote.book.title }}
+                        </a> <!-- Link to the detail page of the book -->
+                    </p>
+                </li>
+            </div>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

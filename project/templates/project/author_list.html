@@ -1,0 +1,44 @@
+<!-- project/templates/project/author_list.html -->
+{% extends "project/base.html" %}
+
+
+{% block content %}
+    <!-- wrapper for the authors list -->
+    <div class="author-list-wrapper">
+        <!-- Title for the authors list page -->
+        <h1 class="page-title">Author List</h1>
+        <!-- Check if authors exist (fail safe) -->
+        {% if authors %}
+        <!-- List of authors -->
+            <ul class="author-list">
+
+                {% for author in authors %}
+                    <!-- create author list items -->
+                    <li class="author-item">
+                        <!-- Put each item on a card -->
+                        <div class="author-card">
+                            <!-- Author's name with a link to their page -->
+                            <a href="{% url 'author_detail' author.pk %}" class="author-title">
+                                <strong>{{ author.first_name }} {{ author.last_name }}</strong>
+                            </a>
+                            <!-- more info on the author -->
+                            <div class="author-details">
+                                <p>Born on: {{ author.birth_date|date:"F d, Y" }}</p>
+                                {% if author.death_date %}
+                                    <p>Died on: {{ author.death_date|date:"F d, Y" }}</p>
+                                {% else %}
+                                    <p><em>Still alive</em></p>
+                                {% endif %}
+                                <p>Region: {{ author.region }}</p>
+                                <p>Field or Specialty: {{ author.field_or_specialty }}</p>
+                                <p>Number of Books: {{ author.book_count }}</p>
+                            </div>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No authors available.</p>
+        {% endif %}
+    </div>
+{% endblock %}

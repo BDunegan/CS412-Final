@@ -38,15 +38,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'pages', #Default Pages page
-    'hw', #HelloWorld app
-    'quotes', #Quote of the Day app
-    'restaurant', #Restaurant app
-    'formdata', #Example formdata app
-    'blog', #Example blog app
-    'mini_fb', #Assignment 5 app
-    'marathon_analytics',
-    'voter_analytics',
+    # 'pages', #Default Pages page
+    # 'hw', #HelloWorld app
+    # 'quotes', #Quote of the Day app
+    # 'restaurant', #Restaurant app
+    # 'formdata', #Example formdata app
+    # 'blog', #Example blog app
+    # 'mini_fb', #Assignment 5 app
+    # 'marathon_analytics',
+    # 'voter_analytics',
+    'project'
 ]
 
 MIDDLEWARE = [
@@ -136,7 +137,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 import os
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [

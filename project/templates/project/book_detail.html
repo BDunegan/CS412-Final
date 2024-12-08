@@ -1,0 +1,71 @@
+<!-- project/templates/project/book_detail.html -->
+{% extends "project/base.html" %} <!-- Extend the base template for consistent layout -->
+
+{% block content %}
+    <div class="book-details">
+        <!-- Display the book title -->
+        <h1 class="book-title">{{ book.title }}</h1>
+
+        <!-- Section for book information -->
+        <div class="book-info">
+            <p><strong>Author:</strong> {{ book.author }}</p> <!-- Display book's author -->
+            <p><strong>ISBN:</strong> {{ book.isbn }}</p> <!-- Display book's ISBN -->
+            <p><strong>Publication Date:</strong> {{ book.publication_date }}</p> <!-- Display publication date -->
+            <p><strong>Theme:</strong> {{ book.theme }}</p> <!-- Display book's theme -->
+            <p><strong>Series:</strong> {{ book.is_series|yesno:"Yes,No" }}</p> <!-- Indicate if the book is part of a series -->
+        </div>
+
+        <!-- Section for quotes related to the book -->
+        <div class="quotes-section">
+            <h2>Quotes from {{ book.title }}</h2>
+            {% if quotes %} <!-- Check if there are quotes for the book -->
+                <ul class="quote-list">
+                    {% for quote in quotes %} <!-- Loop through and display each quote -->
+                        <li class="quote-item">{{ quote.quote }}</li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No quotes yet for this book.</p> <!-- Message if no quotes are available -->
+            {% endif %}
+
+            <!-- Form to add a new quote -->
+            <div class="add-quote">
+                <h3>Add a Quote</h3>
+                <form method="post" class="form-quote">
+                    {% csrf_token %} <!-- CSRF token for security -->
+                    {{ quote_form.as_p }} <!-- Render the quote form fields -->
+                    <button type="submit" name="submit_quote" class="button">Submit Quote</button> <!-- Submit button for the form -->
+                </form>
+            </div>
+        </div>
+
+        <!-- Section for ratings related to the book -->
+        <div class="ratings-section">
+            <h2>Ratings</h2>
+            {% if ratings %} <!-- Check if there are ratings for the book -->
+                <ul class="rating-list">
+                    {% for rating in ratings %} <!-- Loop through and display each rating -->
+                        <li class="rating-item">
+                            <strong>{{ rating.rating }}</strong>: {{ rating.review }} (by {{ rating.rating_by }}) <!-- Display rating details -->
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No ratings yet for this book.</p> <!-- Message if no ratings are available -->
+            {% endif %}
+
+            <!-- Form to add a new rating -->
+            <div class="add-rating">
+                <h3>Add a Rating</h3>
+                <form method="post" class="form-rating">
+                    {% csrf_token %} <!-- CSRF token for security -->
+                    {{ rating_form.as_p }} <!-- Render the rating form fields -->
+                    <button type="submit" name="submit_rating" class="button">Submit Rating</button> <!-- Submit button for the form -->
+                </form>
+            </div>
+        </div>
+
+        <!-- Back button to navigate to the book list -->
+        <a href="{% url 'book_list' %}" class="button back-button">Back to Books List</a>
+    </div>
+{% endblock %}

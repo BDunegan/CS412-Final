@@ -1,0 +1,45 @@
+<!-- project/templates/project/base.html -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CS412 Final Project</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'stylesheet.css' %}">
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <nav>
+            <ul>
+                <!-- Check if a user is logged in -->
+                {% if user.is_authenticated %}
+                    <p>Welcome, {{ user.username }}!</p>
+                    <form action="{% url 'Finallogout' %}" method="POST">
+                        {% csrf_token %}
+                        <input type="submit" value="Logout">
+                    </form>
+                    <li><a href="{% url 'book_create' %}">Create a Book</a></li>
+                {% else %}
+                    <a href="{% url 'Finallogin' %}" class="login-button">Login</a>
+                {% endif %}
+                <li><a href="{% url 'authors_list' %}">Authors</a></li>
+                <li><a href="{% url 'book_list' %}">Books</a></li>
+                <li><a href="{% url 'quotes_list' %}">Quotes</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content Area -->
+    <main>
+        {% block content %}
+        <!-- Default content goes here -->
+        {% endblock %}
+    </main>
+
+    <!-- Footer Section -->
+    <footer>
+        <p>&copy; Brandon Dunegan. 2024 Final Project. All rights reserved.</p>
+    </footer>
+</body>
+</html>

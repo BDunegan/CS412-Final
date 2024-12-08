@@ -1,0 +1,37 @@
+/* basic stylizing for the mini_fb app */
+* {
+    margin: 10px;
+    background-color: bisque;
+}
+
+header {
+    margin: 0;
+    text-decoration: underline;
+}
+
+nav {
+    margin: 2%;
+}
+
+main {
+    margin: 2%;
+}
+
+td {
+    border-bottom: 1pt solid black;
+    padding: 5px;
+}
+
+th {
+    text-decoration: underline;
+}
+
+img {
+    width: 100px;
+}
+
+footer {
+    display: flex;
+    flex-direction: column;
+    text-align: right;
+}

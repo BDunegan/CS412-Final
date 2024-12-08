@@ -1,0 +1,38 @@
+<!-- project/templates/project/login.html -->
+<!DOCTYPE html>
+{% load static %} <!-- Load the static template tag to include CSS and other static files -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8"> <!-- Define the character encoding -->
+    <title>Login</title> <!-- Set the page title -->
+    <link rel="stylesheet" href="{% static 'stylesheet.css' %}"> <!-- Link to the CSS stylesheet -->
+</head>
+<body>
+    <div class="auth-container"> <!-- Container for the login form -->
+        <h1 class="auth-title">Login</h1> <!-- Page title -->
+
+        <!-- Login form -->
+        <form method="post" action="{% url 'Finallogin' %}" class="auth-form">
+            {% csrf_token %} <!-- Include CSRF token for form security -->
+            {{ form }} <!-- Render the login form -->
+
+            <!-- Submit button -->
+            <input type="submit" name="submit" value="Login" class="button">
+
+            <!-- Hidden input for redirecting after login -->
+            {% if request.GET.next %} <!-- Check if a 'next' parameter is present in the request -->
+            <input type="hidden" name="next" value="{{ request.GET.next }}"> <!-- Redirect to the specified page after login -->
+            {% else %}
+            <input type="hidden" name="next" value="{% url 'book_list' %}"> <!-- Default redirect to the book list page -->
+            {% endif %}
+        </form>
+
+        <hr class="divider"> <!-- Divider between the login form and registration link -->
+        
+        <!-- Registration link -->
+        <p class="register-link">
+            Don't have an account? <a href="{% url 'register' %}" class="link">Register here</a>.
+        </p>
+    </div>
+</body>
+</html>

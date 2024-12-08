@@ -1,0 +1,22 @@
+/* basic stylizing for the quotes app */
+* {
+    margin: 0;
+    background-color: bisque;
+}
+
+header {
+    margin: 2%;
+    text-decoration: underline;
+}
+
+nav {
+    margin: 2%;
+}
+
+main {
+    margin: 2%;
+}
+
+ul {
+    list-style-type: none;
+}

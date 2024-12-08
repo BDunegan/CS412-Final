@@ -1,0 +1,42 @@
+<!-- project/templates/project/book_list.html -->
+{% extends "project/base.html" %} <!-- Extend the base template for consistent layout -->
+
+{% block content %}
+    <!-- Page title -->
+    <h1 class="page-title">Book List</h1>
+
+    <!-- List of books -->
+    <ul class="book-list">
+        {% for book in books %} <!-- Loop through all books passed in the context -->
+            <li class="book-item">
+                <div class="book-card">
+                    <!-- Link to the book detail page -->
+                    <a href="{% url 'book_detail' book.pk %}" class="book-title">
+                        <strong>{{ book.title }}</strong>
+                    </a><br>
+
+                    <!-- Display the author's full name -->
+                    <p class="book-author">{{ book.author.first_name }} {{ book.author.last_name }}</p>
+
+                    <!-- Display the average rating -->
+                    <p class="book-rating">
+                        <strong>Average Rating:</strong>
+                        {% if book.average_rating %} <!-- Check if the book has an average rating -->
+                            {{ book.average_rating }}
+                        {% else %}
+                            No ratings yet <!-- Fallback if no ratings are available -->
+                        {% endif %}
+                    </p>
+                    
+                    <!-- Display book details -->
+                    <p class="book-details">
+                        ISBN: {{ book.isbn }}<br> <!-- Book's ISBN -->
+                        Published on: {{ book.publication_date|date:"F d, Y" }}<br> <!-- Publication date -->
+                        Theme: {{ book.theme }}<br> <!-- Theme of the book -->
+                        Part of a series: {{ book.is_series|yesno:"Yes,No" }} <!-- Whether the book is part of a series -->
+                    </p>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

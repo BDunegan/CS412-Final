@@ -1,0 +1,54 @@
+<!-- project/templates/project/author_detail.html -->
+{% extends "project/base.html" %}
+
+<!-- Begin the content block -->
+{% block content %}
+    <div class="author-detail-wrapper">
+        <!-- Display the author's name as the page title -->
+        <h1 class="page-title">{{ author.first_name }} {{ author.last_name }}</h1>
+
+        <!-- Section for displaying author details -->
+        <div class="author-details">
+            <p><strong>Birth Date:</strong> {{ author.birth_date|date:"F d, Y" }}</p>
+            
+            <!-- Conditional logic to check if the author has a death date -->
+            {% if author.death_date %}
+                <p><strong>Death Date:</strong> {{ author.death_date|date:"F d, Y" }}</p>
+            {% else %}
+                <p><strong>Status:</strong> <em>Still alive</em></p>
+            {% endif %}
+            
+            <!-- Displaying additional details about the author -->
+            <p><strong>Region:</strong> {{ author.region }}</p>
+            <p><strong>Field or Specialty:</strong> {{ author.field_or_specialty }}</p>
+            <p><strong>Number of Books:</strong> {{ author.book_set.count }}</p>
+            <p><strong>Average Rating:</strong> {{ average_rating|default:"No ratings yet" }}</p>
+        </div>
+
+        <!-- Section for listing the author's books -->
+        <h2 class="section-title">Books:</h2>
+        
+        <!-- Check if the author has any books -->
+        {% if author.book_set.all %}
+            <ul class="book-list">
+                <!-- Loop through each book written by the author -->
+                {% for book in author.book_set.all %}
+                    <li class="book-item">
+                        <div class="book-card">
+                            <!-- Link each book title to its detail page -->
+                            <h3 class="book-title">
+                                <a href="{% url 'book_detail' book.pk %}">{{ book.title }}</a>
+                            </h3>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <!-- Display a message if the author has no books -->
+            <p class="no-books">No books written by this author.</p>
+        {% endif %}
+
+        <!-- Back button to return to the Author List page -->
+        <a href="{% url 'authors_list' %}" class="button">Back to Author List</a>
+    </div>
+{% endblock %}

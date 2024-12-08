@@ -1,0 +1,28 @@
+<!-- project/templates/project/register.html -->
+<!DOCTYPE html>
+{% load static %} <!-- Load the static template tag to include CSS and other static files -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8"> <!-- Define the character encoding -->
+    <title>Register</title> <!-- Set the page title -->
+    <link rel="stylesheet" href="{% static 'stylesheet.css' %}"> <!-- Link to the CSS stylesheet -->
+</head>
+<body>
+    <div class="auth-container"> <!-- Container for the registration form -->
+        <h1 class="auth-title">Register</h1> <!-- Page title -->
+
+        <!-- Registration form -->
+        <form method="post" class="auth-form">
+            {% csrf_token %} <!-- Include CSRF token for form security -->
+            {{ form.as_p }} <!-- Render the form fields as paragraphs -->
+            <button type="submit" class="button">Register</button> <!-- Submit button -->
+        </form>
+
+        <!-- Link to the login page for existing users -->
+        <p class="register-link">
+            Already have an account? 
+            <a href="{% url 'Finallogin' %}" class="link">Login here</a> <!-- Redirect to login page -->
+        </p>
+    </div>
+</body>
+</html>

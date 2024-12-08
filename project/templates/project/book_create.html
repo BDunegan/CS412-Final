@@ -1,0 +1,19 @@
+<!-- project/templates/project/book_create.html -->
+{% extends 'project/base.html' %} <!-- Extend the base template for consistent layout -->
+
+{% block content %}
+<div class="form-container">
+    <!-- Page title -->
+    <h1 class="form-title">Create a New Book</h1>
+    
+    <!-- Form for creating a new book -->
+    <form method="post" class="styled-form">
+        {% csrf_token %} <!-- CSRF token for form security -->
+        {{ form.as_p }} <!-- Render the form fields as paragraphs -->
+        <button type="submit" class="button">Create Book</button> <!-- Submit button -->
+    </form>
+
+    <!-- Back button to navigate back to the book list -->
+    <a href="{% url 'book_list' %}" class="button back-button">Back to Book List</a>
+</div>
+{% endblock %}

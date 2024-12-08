@@ -1,0 +1,27 @@
+/* basic stylizing for the restaurant app */
+* {
+    margin: 0;
+    background-color: rgb(82, 93, 158);
+}
+
+header {
+    margin: 2%;
+    text-decoration: underline;
+}
+
+nav {
+    margin: 2%;
+}
+
+main {
+    margin: 2%;
+}
+
+ul {
+    list-style-type: none;
+}
+
+
+td {
+    border: 1px solid;
+}

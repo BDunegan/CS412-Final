@@ -21,17 +21,18 @@ from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('pages.urls')),
-    path('hw/', include('hw.urls')),  ## Creates URL hw/, and associates it with other URLS in hw.urls
-    path('quotes/', include('quotes.urls')), ## Creates URL quotes/, and associates it with other URLS in quotes.urls
-    path('restaurant/', include('restaurant.urls')),
-    path('formdata/', include('formdata.urls')),
-    path('blog/', include('blog.urls')), # include the URLs from our blog project's urls.py file
-    path('mini_fb/', include('mini_fb.urls')), # include the URLs from our blog project's urls.py file
-    path('ma/', include('marathon_analytics.urls')), # include the URLs
-    path('va/', include('voter_analytics.urls')), # include the URLs
+    path('', include('project.urls')),
+    # path('hw/', include('hw.urls')),  ## Creates URL hw/, and associates it with other URLS in hw.urls
+    # path('quotes/', include('quotes.urls')), ## Creates URL quotes/, and associates it with other URLS in quotes.urls
+    # path('restaurant/', include('restaurant.urls')),
+    # path('formdata/', include('formdata.urls')),
+    # path('blog/', include('blog.urls')), # include the URLs from our blog project's urls.py file
+    # path('mini_fb/', include('mini_fb.urls')), # include the URLs from our blog project's urls.py file
+    # path('ma/', include('marathon_analytics.urls')), # include the URLs
+    # path('va/', include('voter_analytics.urls')), # include the URLs
+    path('project/', include('project.urls')), # include the URLs
 ]
 
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

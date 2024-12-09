@@ -47,6 +47,14 @@
                     {% for rating in ratings %} <!-- Loop through and display each rating -->
                         <li class="rating-item">
                             <strong>{{ rating.rating }}</strong>: {{ rating.review }} (by {{ rating.rating_by }}) <!-- Display rating details -->
+                            {% if rating.rating_by == request.user.author %} <!-- Check if the logged-in user is the author of the rating -->
+                                <div class="rating-actions">
+                                    <!-- Update button -->
+                                    <a href="{% url 'rating_update' rating.pk %}" class="button-rating">Edit</a>
+                                    <!-- Delete button -->
+                                    <a href="{% url 'rating_delete' rating.pk %}" class="button-danger">Delete</a>
+                                </div>
+                            {% endif %}
                         </li>
                     {% endfor %}
                 </ul>

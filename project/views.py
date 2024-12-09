@@ -9,11 +9,12 @@ from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic.edit import FormMixin
 from django.urls import reverse
 from django.shortcuts import redirect
 from django import forms
-from django.db.models import Q
+from django.views.generic.edit import UpdateView
+from django.core.exceptions import PermissionDenied
+from django.views.generic.edit import DeleteView
 
 class RatingForm(forms.ModelForm):
     """The form used inside the book details page to rate that book"""
@@ -182,3 +183,36 @@ class RegisterView(CreateView):
         )
         
         return response
+
+class RatingUpdateView(LoginRequiredMixin, UpdateView):
+    """Implements the Update CRUD for ratings"""
+    model = Rating
+    form_class = RatingForm  # Reuse the form
+    template_name = "project/rating_update.html"  # Create this template for the update form
+
+    def get_object(self, queryset=None):
+        """Ensure that only the rating's author can update it."""
+        obj = super().get_object(queryset)
+        if obj.rating_by != self.request.user.author:
+            raise PermissionDenied("You do not have permission to edit this rating.")
+        return obj
+
+    def get_success_url(self):
+        """Redirect back to the book detail page."""
+        return reverse('book_detail', kwargs={'pk': self.object.book.pk})
+    
+class RatingDeleteView(LoginRequiredMixin, DeleteView):
+    """Implements the Delete CRUD for ratings"""
+    model = Rating
+    template_name = "project/rating_confirm_delete.html"  # Create a confirmation template
+
+    def get_object(self, queryset=None):
+        """Ensure that only the rating's author can delete it."""
+        obj = super().get_object(queryset)
+        if obj.rating_by != self.request.user.author:
+            raise PermissionDenied("You do not have permission to delete this rating.")
+        return obj
+
+    def get_success_url(self):
+        """Redirect back to the book detail page."""
+        return reverse('book_detail', kwargs={'pk': self.object.book.pk})

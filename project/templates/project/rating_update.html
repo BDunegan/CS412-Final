@@ -1,0 +1,13 @@
+{% extends "project/base.html" %}
+
+{% block content %}
+    <div class="form-container">
+        <h1 class="form-title">Update Rating</h1>
+        <form method="post" class="styled-form">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="button">Update Rating</button>
+        </form>
+        <a href="{% url 'book_detail' object.book.pk %}" class="button back-button">Cancel</a>
+    </div>
+{% endblock %}
